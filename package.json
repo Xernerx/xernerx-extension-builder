@@ -1,0 +1,30 @@
+{
+	"name": "xernerx-extension-builder",
+	"version": "0.0.0",
+	"type": "module",
+	"description": "A builder for extensions of the xernerx framework.",
+	"main": "dist/main.js",
+	"keywords": [
+		"xernerx"
+	],
+	"author": "Dummi",
+	"license": "MIT",
+	"homepage": "https://thedummi.github.io/xernerx/home.html",
+	"packageManager": "npm@8.5.5",
+	"scripts": {
+		"checks": "npm i && npm audit fix --force && npm fund && npm link && tsc -w",
+		"patch": "git add . && git commit -m \"Version Patch\" && npm version patch && npm publish && git push",
+		"minor": "git add . && git commit -m \"Version Upgrade\" && npm version minor && npm publish && git push",
+		"major": "git add . && git commit -m \"Version Rewrite\" && npm version major && npm publish && git push"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/TheDummi/xernerx-extension-builder.git"
+	},
+	"bugs": {
+		"url": "https://github.com/TheDummi/xernerx-extension-builder/issues"
+	},
+	"devDependencies": {
+		"typescript": "^4.9.4"
+	}
+}
