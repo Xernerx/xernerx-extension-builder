@@ -4,11 +4,11 @@ interface Options {
 
 export default class XernerxExtensionBuilder {
 	name: string;
-	options?: Options;
+	_options?: Options;
 
-	constructor(name: string, options?: Options) {
+	constructor(name: string, _options?: Options) {
 		this.name = name;
 
-		this.options = (options as Options) || {};
+		this._options = (_options as Options) || {};
 	}
 }
