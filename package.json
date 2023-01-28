@@ -12,10 +12,11 @@
 	"homepage": "https://thedummi.github.io/xernerx/home.html",
 	"packageManager": "npm@8.5.5",
 	"scripts": {
-		"checks": "npm i && npm audit fix --force && npm fund && npm link && tsc -w",
-		"patch": "git add . && git commit -m \"Version Patch\" && npm version patch && npm publish && git push",
-		"minor": "git add . && git commit -m \"Version Upgrade\" && npm version minor && npm publish && git push",
-		"major": "git add . && git commit -m \"Version Rewrite\" && npm version major && npm publish && git push"
+		"start": "npm i && npm audit fix --force && npm fund && npm link && tsc -w",
+		"patch": "git add . && npm run commit && npm version patch && npm publish && git push",
+		"minor": "git add . && npm run commit && npm version minor && npm publish && git push",
+		"major": "git add . && npm run commit && npm version major && npm publish && git push",
+		"commit": "node ../../scripts/commit.js"
 	},
 	"repository": {
 		"type": "git",
