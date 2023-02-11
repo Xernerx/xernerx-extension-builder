@@ -11,6 +11,13 @@
     "license": "MIT",
     "homepage": "https://thedummi.github.io/xernerx/home.html",
     "packageManager": "npm@8.5.5",
+	"exports": {
+		"import":"./dist/main.js",
+		"require":"./dist/main.cjs",
+		"types":null,
+		"node":null,
+		"default":null
+	},
     "scripts": {
         "start": "npm i && npm audit fix --force && npm fund && npm link && tsc -w",
         "patch": "npm run build && git add . && npm run commit && npm version patch && npm publish && git push",
