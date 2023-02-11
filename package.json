@@ -1,31 +1,34 @@
 {
-	"name": "xernerx-extension-builder",
-	"version": "0.0.3",
-	"type": "module",
-	"description": "A builder for extensions of the xernerx framework.",
-	"main": "dist/main.js",
-	"keywords": [
-		"xernerx"
-	],
-	"author": "Dummi",
-	"license": "MIT",
-	"homepage": "https://thedummi.github.io/xernerx/home.html",
-	"packageManager": "npm@8.5.5",
-	"scripts": {
-		"start": "npm i && npm audit fix --force && npm fund && npm link && tsc -w",
-		"patch": "git add . && npm run commit && npm version patch && npm publish && git push",
-		"minor": "git add . && npm run commit && npm version minor && npm publish && git push",
-		"major": "git add . && npm run commit && npm version major && npm publish && git push",
-		"commit": "node ../../scripts/commit.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/TheDummi/xernerx-extension-builder.git"
-	},
-	"bugs": {
-		"url": "https://github.com/TheDummi/xernerx-extension-builder/issues"
-	},
-	"devDependencies": {
-		"typescript": "^4.9.4"
-	}
+    "name": "xernerx-extension-builder",
+    "version": "0.0.4",
+    "type": "module",
+    "description": "A builder for extensions of the xernerx framework.",
+    "main": "dist/main.js",
+    "keywords": [
+        "xernerx"
+    ],
+    "author": "Dummi",
+    "license": "MIT",
+    "homepage": "https://thedummi.github.io/xernerx/home.html",
+    "packageManager": "npm@8.5.5",
+    "scripts": {
+        "start": "npm i && npm audit fix --force && npm fund && npm link && tsc -w",
+        "patch": "npm run build && git add . && npm run commit && npm version patch && npm publish && git push",
+        "minor": "npm run build && git add . && npm run commit && npm version minor && npm publish && git push",
+        "major": "npm run build && git add . && npm run commit && npm version major && npm publish && git push",
+        "commit": "node ../../.scripts/commit.js",
+        "build": "tsc && npx tsup src/main.ts && npx prettier --write src"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TheDummi/xernerx-extension-builder.git"
+    },
+    "bugs": {
+        "url": "https://github.com/TheDummi/xernerx-extension-builder/issues"
+    },
+    "devDependencies": {
+        "prettier": "^2.8.4",
+        "tsup": "^6.6.0",
+        "typescript": "^4.9.5"
+    }
 }
