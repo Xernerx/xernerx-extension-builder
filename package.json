@@ -1,7 +1,6 @@
 {
     "name": "xernerx-extension-builder",
     "version": "0.0.6",
-    "type": "module",
     "description": "A builder for extensions of the xernerx framework.",
     "main": "dist/cjs/main.js",
     "module": "dist/mjs/main.js",
