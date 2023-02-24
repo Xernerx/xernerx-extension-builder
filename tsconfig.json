@@ -1,13 +1,13 @@
 {
-    "include": ["src/**/*", "src/*"],
-    "exclude": ["node_modules", ".github", "docs"],
+    "include": ["src"],
+    "exclude": ["node_modules"],
     "compilerOptions": {
         "target": "ES2022",
         "module": "NodeNext",
         "rootDir": "./src",
         "moduleResolution": "NodeNext",
         "declaration": true,
-        "outDir": "./dist",
+        "outDir": "./dist/mjs",
         "newLine": "lf",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
