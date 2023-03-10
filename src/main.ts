@@ -12,3 +12,5 @@ export default class XernerxExtensionBuilder {
         this._options = (_options as Options) || {};
     }
 }
+
+// npm is horrible
