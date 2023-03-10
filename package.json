@@ -2,8 +2,8 @@
     "name": "xernerx-extension-builder",
     "version": "0.0.8",
     "description": "A builder for extensions of the xernerx framework.",
-    "main": "dist/cjs/main.js",
-    "module": "dist/mjs/main.js",
+    "main": "dist",
+    "type": "module",
     "keywords": [
         "xernerx"
     ],
@@ -17,9 +17,7 @@
         "minor": "npm run build && git add . && npm run commit && npm version minor && npm publish && git push",
         "major": "npm run build && git add . && npm run commit && npm version major && npm publish && git push",
         "commit": "node ../../.scripts/commit.js",
-        "build": "npm run build:esm && npm run build:cjs && npx prettier --write src dist",
-        "build:esm": "tsc",
-        "build:cjs": "tsc --module CommonJS --outDir dist/cjs"
+        "build": "tsc && npx prettier --write src dist"
     },
     "repository": {
         "type": "git",

@@ -7,7 +7,7 @@
         "rootDir": "./src",
         "moduleResolution": "NodeNext",
         "declaration": true,
-        "outDir": "./dist/mjs",
+        "outDir": "./dist",
         "newLine": "lf",
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
