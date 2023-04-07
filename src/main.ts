@@ -1,16 +1,14 @@
-interface Options {
-    client: object;
-}
-
 export default class XernerxExtensionBuilder {
-    name: string;
-    _options?: Options;
+    public readonly name: string;
+    public readonly options;
 
-    constructor(name: string, _options?: Options) {
+    constructor(name: string, options?: Record<string, unknown>) {
         this.name = name;
 
-        this._options = (_options as Options) || {};
+        this.options = options || {};
     }
-}
 
-// npm is horrible
+    public async main(client: unknown) {}
+
+    public async await(client: unknown) {}
+}
