@@ -10,5 +10,5 @@ export default class XernerxExtensionBuilder {
 
     public async main(client: unknown) {}
 
-    public async await(client: unknown) {}
+    public async defer(client: unknown) {}
 }
