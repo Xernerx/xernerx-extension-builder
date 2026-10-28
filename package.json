@@ -1,34 +1,60 @@
 {
-    "name": "xernerx-extension-builder",
-    "version": "0.0.11",
-    "description": "A builder for extensions of the xernerx framework.",
-    "main": "dist/main.js",
-    "type": "module",
-    "keywords": [
-        "xernerx"
-    ],
-    "author": "Dummi",
-    "license": "MIT",
-    "homepage": "https://thedummi.github.io/xernerx/home.html",
-    "packageManager": "npm@8.5.5",
-    "scripts": {
-        "start": "npm i && npm audit fix --force && npm fund && npm link && tsc -w",
-        "patch": "npm run build && git add . && npm run commit && npm version patch && npm publish && git push",
-        "minor": "npm run build && git add . && npm run commit && npm version minor && npm publish && git push",
-        "major": "npm run build && git add . && npm run commit && npm version major && npm publish && git push",
-        "commit": "node ../../.scripts/commit.js",
-        "build": "tsc && npx prettier --write src dist"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/TheDummi/xernerx-extension-builder.git"
-    },
-    "bugs": {
-        "url": "https://github.com/TheDummi/xernerx-extension-builder/issues"
-    },
-    "devDependencies": {
-        "prettier": "^2.8.4",
-        "tsup": "^6.6.0",
-        "typescript": "^4.9.5"
-    }
+	"name": "@xernerx/extension-builder",
+	"publishConfig": {
+		"access": "public"
+	},
+	"version": "0.1.0",
+	"type": "module",
+	"main": "./dist/main.cjs",
+	"module": "./dist/main.js",
+	"types": "./dist/main.d.ts",
+	"description": "Official extension builder for the @xernerx/framework ecosystem.",
+	"homepage": "www.xernerx.com",
+	"files": [
+		"src",
+		"dist"
+	],
+	"exports": {
+		"require": {
+			"types": "./dist/main.d.cts",
+			"default": "./dist/main.cjs"
+		},
+		"import": {
+			"types": "./dist/main.d.ts",
+			"default": "./dist/main.js"
+		}
+	},
+	"scripts": {
+		"commit": "prettier --write . && node -e \"const fs=require('fs'),cp=require('child_process');const has=fs.readdirSync('.changeset').some(f=>f.endsWith('.md')&&f.toLowerCase()!=='readme.md');cp.execSync(!process.stdin.isTTY&&has?'pnpm exec changeset status':'pnpm exec changeset',{stdio:'inherit'})\"",
+		"ship": "changeset version && pnpm run build && git add . && git commit -m \"chore: release\" && changeset tag && git push --follow-tags",
+		"docs": "typedoc",
+		"build": "pnpm i && tsup && attw --pack && pnpm run docs",
+		"dev": "pnpm i && pnpm link && tsup --watch",
+		"test": "pnpm install --engine-strict=true"
+	},
+	"keywords": [
+		"xernerx",
+		"extension",
+		"extension-builder",
+		"framework"
+	],
+	"author": "Xernerx Studios",
+	"license": "MIT",
+	"packageManager": "pnpm@11.24.0",
+	"devDependencies": {
+		"@arethetypeswrong/cli": "^0.18.2",
+		"@changesets/cli": "^3.0.1",
+		"@types/node": "^24",
+		"prettier": "^3.8.3",
+		"tslib": "^2.8.1",
+		"tsup": "^8.5.1",
+		"typedoc": "^0.28.20",
+		"typedoc-github-theme": "^0.4.0",
+		"typedoc-plugin-extras": "^4.0.1",
+		"typedoc-plugin-zod": "^1.4.3",
+		"typescript": "^6.0.3"
+	},
+	"engines": {
+		"node": ">=24"
+	}
 }

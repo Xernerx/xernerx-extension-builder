@@ -1,17 +1,37 @@
 {
-    "include": ["src"],
-    "exclude": ["node_modules"],
-    "compilerOptions": {
-        "target": "ES2022",
-        "module": "NodeNext",
-        "rootDir": "./src",
-        "moduleResolution": "NodeNext",
-        "declaration": true,
-        "outDir": "./dist",
-        "newLine": "lf",
-        "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
-        "strict": true,
-        "skipLibCheck": true
-    }
+	"include": ["src"],
+	"exclude": ["node_modules", ".github", "docs"],
+	"compilerOptions": {
+		"ignoreDeprecations": "6.0",
+		// Type Checking
+		"types": ["node"],
+		"allowUnreachableCode": false,
+		"allowUnusedLabels": false,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitOverride": true,
+		// "noImplicitReturns": true,
+		"noUnusedLocals": true,
+		"strict": true,
+		"useUnknownInCatchVariables": true,
+
+		// Emit
+		"declaration": true,
+		"importHelpers": true,
+		"newLine": "lf",
+		"noEmitHelpers": true,
+		"outDir": "./dist",
+		"removeComments": false,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
+
+		// Language and Environment
+		"experimentalDecorators": true,
+		"lib": ["ESNext"],
+		"useDefineForClassFields": true,
+		"target": "ES2022",
+		"module": "NodeNext",
+		"rootDir": "./src",
+		"moduleResolution": "NodeNext",
+		"skipLibCheck": true
+	}
 }

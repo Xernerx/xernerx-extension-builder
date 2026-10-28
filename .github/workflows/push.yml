@@ -1,0 +1,130 @@
+# @format
+
+name: Publish Packages
+
+on:
+  push:
+    branches:
+      - main
+      - beta
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 11.24.0
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build with tsup
+        run: pnpm exec tsup
+
+      - name: Check exports with arethetypeswrong
+        run: pnpm exec attw --pack
+
+      - name: Run Prettier
+        run: pnpm exec prettier --write .
+
+      - name: Get package info & check publish status
+        id: pkg
+        run: |
+          NAME=$(node -p "require('./package.json').name")
+          VERSION=$(node -p "require('./package.json').version")
+          PUBLISHED=$(npm view "${NAME}@${VERSION}" version 2>/dev/null || echo "")
+
+          echo "name=${NAME}" >> $GITHUB_OUTPUT
+          echo "version=${VERSION}" >> $GITHUB_OUTPUT
+
+          if [ "$PUBLISHED" != "$VERSION" ]; then
+            echo "should_publish=true" >> $GITHUB_OUTPUT
+            echo "Version ${VERSION} is not published yet on npm. Proceeding with publish."
+          else
+            echo "should_publish=false" >> $GITHUB_OUTPUT
+            echo "Version ${VERSION} is already published on npm. Skipping npm publish."
+          fi
+
+      - name: Generate docs
+        run: |
+          rm -rf typedoc_out
+          mkdir -p typedoc_out
+
+          # HTML (for browsing)
+          pnpm exec typedoc --out typedoc_out src
+
+          # JSON (for your API)
+          pnpm exec typedoc --json typedoc_out/docs.json src
+
+      - name: Publish to npmjs.org
+        if: steps.pkg.outputs.should_publish == 'true'
+        run: |
+          if [ "${GITHUB_REF##*/}" = "beta" ]; then
+            npm publish --tag beta --access public
+          else
+            npm publish --tag latest --access public
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_ACCESS_TOKEN }}
+
+      - name: Configure npm for GitHub Packages
+        if: false # disabled until scoped package is ready
+        run: |
+          printf "@xernerx:registry=https://npm.pkg.github.com/\n//npm.pkg.github.com/:_authToken=%s\n" "${NODE_AUTH_TOKEN}" > ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.XERNERX_ACCESS_TOKEN }}
+
+      - name: Publish to GitHub Packages
+        if: false # disabled until scoped package is ready
+        run: npm publish --registry=https://npm.pkg.github.com/ --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.XERNERX_ACCESS_TOKEN }}
+
+      - name: Create GitHub Release
+        id: gh-release
+        if: steps.pkg.outputs.should_publish == 'true' || github.event_name == 'workflow_dispatch'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.pkg.outputs.version }}
+          name: ${{ steps.pkg.outputs.name }} v${{ steps.pkg.outputs.version }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.XERNERX_ACCESS_TOKEN || secrets.GITHUB_TOKEN }}
+
+      - name: Push docs to docs repo
+        if: steps.pkg.outputs.should_publish == 'true' || github.event_name == 'workflow_dispatch'
+        run: |
+          git clone https://github.com/Xernerx/docs.git docs-repo
+          cd docs-repo
+
+          # Detect remote default branch
+          default_branch=$(git remote show origin | sed -n '/HEAD branch/s/.*: //p')
+          git checkout $default_branch || git checkout -b $default_branch
+
+          # Copy docs to versioned package folder
+          mkdir -p packages/${{ steps.pkg.outputs.name }}/${{ steps.pkg.outputs.version }}
+          cp -r ../typedoc_out/* packages/${{ steps.pkg.outputs.name }}/${{ steps.pkg.outputs.version }}/
+
+          # Commit & push
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "docs: update for ${{ steps.pkg.outputs.name }}@${{ steps.pkg.outputs.version }}" || echo "No changes to commit"
+          git push https://x-access-token:${{ secrets.XERNERX_ACCESS_TOKEN }}@github.com/Xernerx/docs.git $default_branch

@@ -1,0 +1,54 @@
+{
+	"plugin": ["typedoc-github-theme", "typedoc-plugin-extras", "typedoc-plugin-zod"],
+	"theme": "typedoc-github-theme",
+
+	"name": "Xernerx Extension Builder",
+	"entryPoints": ["src/*"],
+	"entryPointStrategy": "expand",
+	"exclude": ["node_modules", "src/main.ts", "src/types"],
+	"readme": "README.md",
+	"gitRevision": "HEAD",
+	"githubPages": true,
+	"excludeReferences": true,
+	"includeVersion": true,
+	"projectDocuments": ["CHANGELOG.md"],
+	"router": "structure-dir",
+	"footerLastModified": true,
+
+	"out": "./docs",
+	"json": "./docs/docs.json",
+	"pretty": true,
+	"markdownItOptions": {
+		"html": true,
+		"linkify": true
+	},
+	"hideGenerator": false,
+	"searchInComments": true,
+	"searchInDocuments": true,
+	"navigation": {
+		"includeCategories": false,
+		"includeGroups": false,
+		"includeFolders": true
+	},
+	"categorizeByGroup": false,
+	"visibilityFilters": {
+		"protected": true,
+		"private": false,
+		"inherited": true,
+		"external": false,
+		"@alpha": false,
+		"@beta": false
+	},
+
+	"commentStyle": "all",
+	"jsDocCompatibility": {
+		"inheritDocTag": true,
+		"ignoreUnescapedBraces": true
+	},
+
+	"validation": {
+		"notExported": true,
+		"invalidLink": true,
+		"notDocumented": false
+	}
+}

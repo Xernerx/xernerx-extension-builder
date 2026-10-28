@@ -1,16 +1,11 @@
-interface Options {
-    client: object;
-}
+/**
+ * `@xernerx/extension-builder` — Official extension builder base class for `@xernerx/framework` extensions.
+ *
+ * @packageDocumentation
+ * @format
+ */
 
-export default class XernerxExtensionBuilder {
-    name: string;
-    _options?: Options;
+import { ExtensionBuilder, XernerxExtensionBuilder, XernerxExtension, type ExtensionBuilderOptions, type ExtensionFileType } from './build/ExtensionBuilder.js';
 
-    constructor(name: string, _options?: Options) {
-        this.name = name;
-
-        this._options = (_options as Options) || {};
-    }
-}
-
-// npm is horrible
+export { ExtensionBuilder, XernerxExtensionBuilder, XernerxExtension };
+export type { ExtensionBuilderOptions, ExtensionFileType };
