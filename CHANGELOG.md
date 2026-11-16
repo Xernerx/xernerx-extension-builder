@@ -1,3 +1,5 @@
+<!-- @format -->
+
 # @xernerx/extension-builder
 
 ## 0.1.0
