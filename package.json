@@ -39,7 +39,7 @@
 		"framework"
 	],
 	"author": "Xernerx Studios",
-	"license": "MIT",
+	"license": "Apache-2.0",
 	"packageManager": "pnpm@11.24.0",
 	"devDependencies": {
 		"@arethetypeswrong/cli": "^0.18.2",
