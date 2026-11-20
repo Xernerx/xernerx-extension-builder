@@ -1,6 +1,6 @@
 <!-- @format -->
 
-![Xernerx Banner](https://xernerx.com/banner.png)
+![@xernerx/extension-builder Banner](https://docs.xernerx.com/packages/banners/extension-builder.svg)
 
 # @xernerx/extension-builder
 

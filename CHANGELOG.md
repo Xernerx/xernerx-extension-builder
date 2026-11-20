@@ -2,6 +2,12 @@
 
 # @xernerx/extension-builder
 
+## 0.1.3
+
+### Patch Changes
+
+- Link GitHub Packages (`npm.pkg.github.com`) publish step to canonical `${GITHUB_REPOSITORY}` with `GITHUB_TOKEN`.
+
 ## 0.1.2
 
 ### Patch Changes
