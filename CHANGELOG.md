@@ -2,6 +2,14 @@
 
 # @xernerx/extension-builder
 
+## 0.1.2
+
+### Patch Changes
+
+- <!-- @format -->
+  
+  Authenticate `Xernerx/docs` clone in `.github/workflows/push.yml`.
+
 ## 0.1.1
 
 ### Patch Changes

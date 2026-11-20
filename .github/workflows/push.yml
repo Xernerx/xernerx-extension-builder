@@ -111,7 +111,7 @@ jobs:
       - name: Push docs to docs repo
         if: steps.pkg.outputs.should_publish == 'true' || github.event_name == 'workflow_dispatch'
         run: |
-          git clone https://github.com/Xernerx/docs.git docs-repo
+          git clone https://x-access-token:${{ secrets.XERNERX_ACCESS_TOKEN }}@github.com/Xernerx/docs.git docs-repo
           cd docs-repo
 
           # Detect remote default branch
