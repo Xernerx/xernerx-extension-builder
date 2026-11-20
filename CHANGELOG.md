@@ -2,6 +2,14 @@
 
 # @xernerx/extension-builder
 
+## 0.1.1
+
+### Patch Changes
+
+- <!-- @format -->
+  
+  Update `packageManager` to `pnpm@12.21.0` and standardize `/** @format */` header placement in `src/main.ts`.
+
 ## 0.1.0
 
 ### Minor Changes
